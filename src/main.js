@@ -77,8 +77,8 @@ client.on("all", allData => {
     client.initChannel(`invites.${store.state.user.id}`);
   }
 });
-client.on("house", house => {
-  store.commit("setHouse", house.data);
+client.on("company", company => {
+  store.commit("setCompany", company.data);
 });
 client.on("flats", flat => {
   store.commit("setFlat", flat.data);

@@ -12,7 +12,7 @@ export default new Vuex.Store({
     appCurrentVersion: null,
     pageName: null,
     user: null,
-    house: null,
+    company: null,
     flats: null,
     posts: null,
     pinnedPosts: null,
@@ -25,7 +25,7 @@ export default new Vuex.Store({
     imChannels: null,
     imChannelMute: false,
     ready: {
-      house: false,
+      company: false,
       flats: false,
       posts: false,
       pinnedPosts: false,

@@ -4,8 +4,8 @@
       <span>{{ $t("main.title") }}</span>
       <v-icon>mdi-home-outline</v-icon>
     </v-btn>
-    <v-btn value="house" to="/sections">
-      <span>{{ $t("house.title") }}</span>
+    <v-btn value="company" to="/sections">
+      <span>{{ $t("company.title") }}</span>
       <v-icon>mdi-account-supervisor-outline</v-icon>
     </v-btn>
     <v-btn value="im" to="/im">

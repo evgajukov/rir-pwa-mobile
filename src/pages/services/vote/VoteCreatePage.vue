@@ -9,7 +9,7 @@
     <v-checkbox v-model="multi" label="несколько ответов" hide-details />
     
     <v-radio-group v-model="type">
-      <v-radio label="весь дом" value="house" />
+      <v-radio label="вся компания" value="company" />
       <v-radio label="весь подъезд" value="section" />
       <v-radio label="весь этаж в подъезде" value="floor" />
     </v-radio-group>

@@ -12,9 +12,9 @@ export default {
     state.flats = flats;
     state.ready.flats = true;
   },
-  setHouse(state, house) {
-    state.house = house;
-    state.ready.house = true;
+  setCompany(state, company) {
+    state.company = company;
+    state.ready.company = true;
   },
   setFlat(state, flat) {
     if (state.flats == null) state.flats = [];
