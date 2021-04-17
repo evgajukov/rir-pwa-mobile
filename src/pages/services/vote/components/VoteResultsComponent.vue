@@ -5,7 +5,7 @@
         <span class="font-weight-medium">{{ question.body }}</span><br />
         <span>Голосов: {{ qAnswersCount(question) }} [{{ percent(question) }}%]</span>
         <v-list dense>
-          <v-list-item v-for="answer of qAnswers(question)" :key="answer.id" :to="{ name: 'flat', params: { flatNumber: answer.person.flat.number } }">
+          <v-list-item v-for="answer of qAnswers(question)" :key="answer.id" :to="{ name: 'department', params: { departmentNumber: answer.person.department.number } }">
             <v-list-item-content>
               <v-list-item-title>{{ showPersonInfo(answer) }}</v-list-item-title>
             </v-list-item-content>
@@ -43,13 +43,13 @@ export default {
       const empty = value => value == null || value.trim().length == 0;
 
       const profile = answer.person;
-      const flat = answer.person.flat;
+      const department = answer.person.department;
       
       const name = profile.name != null ? profile.name : "";
       const surname = profile.surname != null ? profile.surname : "";
       const midname = profile.midname != null ? profile.midname : "";
       const result = `${surname} ${name} ${midname}`;
-      return empty(result) ? `Сосед из кв. №${flat.number}, этаж ${flat.floor}, подъезд ${flat.section}` : result;
+      return empty(result) ? `Сосед из кв. №${department.number}, этаж ${department.floor}, подъезд ${department.section}` : result;
     },
   },
 };

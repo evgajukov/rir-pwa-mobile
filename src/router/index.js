@@ -26,7 +26,7 @@ import RecommendationCreatePage from "@/pages/services/recommendation/Recommenda
 import SectionsPage from "@/pages/home/SectionsPage";
 import SectionPage from "@/pages/home/SectionPage";
 import FloorPage from "@/pages/home/FloorPage";
-import FlatPage from "@/pages/home/FlatPage";
+import DepartmentPage from "@/pages/home/DepartmentPage";
 
 import AboutPage from "@/pages/AboutPage";
 import ProfilePage from "@/pages/ProfilePage";
@@ -66,7 +66,7 @@ export default new Router({
     { path: "/sections", name: "sections", component: SectionsPage },
     { path: "/section/:sectionId/floors", name: "section", component: SectionPage },
     { path: "/section/:sectionId/floor/:floorId", name: "floor", component: FloorPage },
-    { path: "/flat/:flatNumber", name: "flat", component: FlatPage },
+    { path: "/department/:departmentNumber", name: "department", component: DepartmentPage },
 
     { path: "/about", name: "about", component: AboutPage },
     { path: "/profile", name: "profile", component: ProfilePage },

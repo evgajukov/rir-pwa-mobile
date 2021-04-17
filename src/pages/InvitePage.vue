@@ -18,7 +18,7 @@
         <v-list-item-content>
           <v-list-item-title>{{ item.code | codeFormat }}</v-list-item-title>
           <v-list-item-subtitle>{{ item.createdAt | formatDate }}</v-list-item-subtitle>
-          <v-list-item-subtitle v-if="item.flat != null">{{ item.flat | formatFlat }}</v-list-item-subtitle>
+          <v-list-item-subtitle v-if="item.department != null">{{ item.department | formatDepartment }}</v-list-item-subtitle>
           <v-list-item-subtitle v-else class="red--text">приглашением еще не воспользовались</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -63,9 +63,9 @@ export default {
       if (value == null) return "";
       return moment(value).format("DD.MM.YYYY HH:mm:ss");
     },
-    formatFlat(flat) {
-      if (flat == null) return "";
-      return `кв. №${flat.number}, этаж ${flat.floor}, подъезд ${flat.section}`;
+    formatDepartment(department) {
+      if (department == null) return "";
+      return `кв. №${department.number}, этаж ${department.floor}, подъезд ${department.section}`;
     },
   },
 };

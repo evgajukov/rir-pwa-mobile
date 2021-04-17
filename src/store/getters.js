@@ -1,70 +1,70 @@
 export default {
   getSections: state => () => {
-    if (state.flats == null) return [];
+    if (state.departments == null) return [];
     let sections = {};
-    state.flats.forEach(flat => {
-      if (sections[flat.section] == null) sections[flat.section] = { section: flat.section, min: Number.MAX_VALUE, max: 0, floors: 0 };
-      if (sections[flat.section].min > flat.number) sections[flat.section].min = flat.number;
-      if (sections[flat.section].max < flat.number) sections[flat.section].max = flat.number;
-      if (sections[flat.section].floors < flat.floor) sections[flat.section].floors = flat.floor;
+    state.departments.forEach(department => {
+      if (sections[department.section] == null) sections[department.section] = { section: department.section, min: Number.MAX_VALUE, max: 0, floors: 0 };
+      if (sections[department.section].min > department.number) sections[department.section].min = department.number;
+      if (sections[department.section].max < department.number) sections[department.section].max = department.number;
+      if (sections[department.section].floors < department.floor) sections[department.section].floors = department.floor;
     });
     return sections;
   },
   getFloors: state => (section) => {
-    if (state.flats == null) return {};
-    let flats = state.flats.filter(flat => flat.section == section);
+    if (state.departments == null) return {};
+    let departments = state.departments.filter(department => department.section == section);
     let floors = {};
-    flats.forEach(flat => {
-      if (floors[flat.floor] == null) floors[flat.floor] = { floor: flat.floor, min: Number.MAX_VALUE, max: 0 };
-      if (floors[flat.floor].min > flat.number) floors[flat.floor].min = flat.number;
-      if (floors[flat.floor].max < flat.number) floors[flat.floor].max = flat.number;
+    departments.forEach(department => {
+      if (floors[department.floor] == null) floors[department.floor] = { floor: department.floor, min: Number.MAX_VALUE, max: 0 };
+      if (floors[department.floor].min > department.number) floors[department.floor].min = department.number;
+      if (floors[department.floor].max < department.number) floors[department.floor].max = department.number;
     });
     return floors;
   },
-  getFlats: state => ({ section, floor }) => {
-    if (state.flats == null) return {};
-    return state.flats.filter(flat => flat.section == section && flat.floor == floor);
+  getDepartments: state => ({ section, floor }) => {
+    if (state.departments == null) return {};
+    return state.departments.filter(department => department.section == section && department.floor == floor);
   },
-  getFlat: state => (flatNumber) => {
-    if (state.flats == null) return null;
-    for (let flat of state.flats) {
-      if (flat.number == flatNumber) return flat;
+  getDepartment: state => (departmentNumber) => {
+    if (state.departments == null) return null;
+    for (let department of state.departments) {
+      if (department.number == departmentNumber) return department;
     }
     return null;
   },
-  getFlatsStat: state => () => {
-    let stat = { flats: 0, busy: 0, persons: 0, squares: 0, busySquares: 0, sections: {} };
-    if (state.flats == null) return stat;
+  getDepartmentsStat: state => () => {
+    let stat = { departments: 0, busy: 0, persons: 0, squares: 0, busySquares: 0, sections: {} };
+    if (state.departments == null) return stat;
     
-    for (let flat of state.flats) {
+    for (let department of state.departments) {
       // общая статистика
-      stat.flats++;
-      if (flat.residents.length != 0) {
+      stat.departments++;
+      if (department.residents.length != 0) {
         stat.busy++;
-        stat.busySquares += flat.square;
+        stat.busySquares += department.square;
       }
-      stat.persons += flat.residents.length;
-      stat.squares += flat.square;
+      stat.persons += department.residents.length;
+      stat.squares += department.square;
       
       // статистика по секциям
-      if (stat.sections[flat.section] == null) stat.sections[flat.section] = { flats: 0, busy: 0, persons: 0, squares: 0, busySquares: 0, floors: {} };
-      stat.sections[flat.section].flats++;
-      if (flat.residents.length != 0) {
-        stat.sections[flat.section].busy++;
-        stat.sections[flat.section].busySquares += flat.square;
+      if (stat.sections[department.section] == null) stat.sections[department.section] = { departments: 0, busy: 0, persons: 0, squares: 0, busySquares: 0, floors: {} };
+      stat.sections[department.section].departments++;
+      if (department.residents.length != 0) {
+        stat.sections[department.section].busy++;
+        stat.sections[department.section].busySquares += department.square;
       }
-      stat.sections[flat.section].persons += flat.residents.length;
-      stat.sections[flat.section].squares += flat.square;
+      stat.sections[department.section].persons += department.residents.length;
+      stat.sections[department.section].squares += department.square;
 
       // статистика по этажам
-      if (stat.sections[flat.section].floors[flat.floor] == null) stat.sections[flat.section].floors[flat.floor] = { flats: 0, busy: 0, persons: 0, squares: 0, busySquares: 0 };
-      stat.sections[flat.section].floors[flat.floor].flats++;
-      if (flat.residents.length != 0) {
-        stat.sections[flat.section].floors[flat.floor].busy++;
-        stat.sections[flat.section].floors[flat.floor].busySquares += flat.square;
+      if (stat.sections[department.section].floors[department.floor] == null) stat.sections[department.section].floors[department.floor] = { departments: 0, busy: 0, persons: 0, squares: 0, busySquares: 0 };
+      stat.sections[department.section].floors[department.floor].departments++;
+      if (department.residents.length != 0) {
+        stat.sections[department.section].floors[department.floor].busy++;
+        stat.sections[department.section].floors[department.floor].busySquares += department.square;
       }
-      stat.sections[flat.section].floors[flat.floor].persons += flat.residents.length;
-      stat.sections[flat.section].floors[flat.floor].squares += flat.square;
+      stat.sections[department.section].floors[department.floor].persons += department.residents.length;
+      stat.sections[department.section].floors[department.floor].squares += department.square;
     }
 
     return stat;

@@ -13,7 +13,7 @@ export default new Vuex.Store({
     pageName: null,
     user: null,
     company: null,
-    flats: null,
+    departments: null,
     posts: null,
     pinnedPosts: null,
     instructions: null,
@@ -26,7 +26,7 @@ export default new Vuex.Store({
     imChannelMute: false,
     ready: {
       company: false,
-      flats: false,
+      departments: false,
       posts: false,
       pinnedPosts: false,
       instructions: false,

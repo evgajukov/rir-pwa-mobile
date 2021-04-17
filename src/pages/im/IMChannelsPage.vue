@@ -34,12 +34,12 @@ export default {
       const empty = value => value == null || value.trim().length == 0;
 
       if (profile == null) return "";
-      const flat = profile.flat;
+      const department = profile.department;
       const name = profile.name != null ? profile.name : "";
       const surname = profile.surname != null ? profile.surname : "";
       const midname = profile.midname != null ? profile.midname : "";
       const result = `${surname} ${name} ${midname}`;
-      return empty(result) ? `Сосед(ка) из кв. №${flat.number}, этаж ${flat.floor}, подъезд ${flat.section}` : result;
+      return empty(result) ? `Сосед(ка) из кв. №${department.number}, этаж ${department.floor}, подъезд ${department.section}` : result;
     },
     showTitle(channel) {
       if (channel == null) return "";

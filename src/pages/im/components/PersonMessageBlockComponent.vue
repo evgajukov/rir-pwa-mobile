@@ -44,7 +44,7 @@ export default {
         x: 0,
         y: 0,
         items: [
-          { code: "flat", title: "Профиль", icon: "mdi-account-outline", for: "other" },
+          { code: "department", title: "Профиль", icon: "mdi-account-outline", for: "other" },
           { code: "answer", title: "Ответить", icon: "mdi-subdirectory-arrow-left", for: "all" },
           { code: "copy", title: "Копировать", icon: "mdi-content-copy", for: "all" },
           { code: "fix", title: "Закрепить", icon: "mdi-pin-outline", for: "all", disabled: true },
@@ -92,12 +92,12 @@ export default {
     showName(profile) {
       const empty = value => value == null || value.trim().length == 0;
 
-      const flat = profile.flat; 
+      const department = profile.department; 
       const name = profile.name != null ? profile.name : "";
       const surname = profile.surname != null ? profile.surname : "";
       const midname = profile.midname != null ? profile.midname : "";
       const result = `${surname} ${name} ${midname}`;
-      return empty(result) ? `Сосед(ка) из кв. №${flat.number}, этаж ${flat.floor}, подъезд ${flat.section}` : result;
+      return empty(result) ? `Сосед(ка) из кв. №${department.number}, этаж ${department.floor}, подъезд ${department.section}` : result;
     },
     formatDate(value) {
       if (value == null) return "";

@@ -1,15 +1,15 @@
 <template>
   <v-container fluid>
-    <v-card v-if="flat != null" color="#1F7087" dark class="mb-2">
-      <v-card-title>Квартира №{{ flat.number }}</v-card-title>
+    <v-card v-if="department != null" color="#1F7087" dark class="mb-2">
+      <v-card-title>Квартира №{{ department.number }}</v-card-title>
       <v-card-subtitle>
-        Жильцов: {{ flat.residents.length }}<br />
-        <span v-if="flat.rooms != null">Комнат: {{ flat.rooms }}<br /></span>
-        <span v-if="flat.square != null">Размер: {{ flat.square }} кв.м.</span>
+        Жильцов: {{ department.residents.length }}<br />
+        <span v-if="department.rooms != null">Комнат: {{ department.rooms }}<br /></span>
+        <span v-if="department.square != null">Размер: {{ department.square }} кв.м.</span>
       </v-card-subtitle>
     </v-card>
-    <v-row v-if="flat != null && flat.residents.length != 0" dense>
-      <v-col v-for="resident of flat.residents" :key="resident.id" cols="12">
+    <v-row v-if="department != null && department.residents.length != 0" dense>
+      <v-col v-for="resident of department.residents" :key="resident.id" cols="12">
         <v-card>
           <v-card-title>{{ resident | fio }}</v-card-title>
           <v-card-subtitle v-if="resident.mobile != null || resident.telegram != null">
@@ -32,28 +32,28 @@
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: "FlatPage",
+  name: "DepartmentPage",
   data() {
     return {
-      flat: null,
+      department: null,
     };
   },
   computed: {
-    flatNumber() {
-      return this.$route.params.flatNumber;
+    departmentNumber() {
+      return this.$route.params.departmentNumber;
     },
     ...mapState(["ready", "client"]),
-    ...mapGetters(["getFlat"]),
+    ...mapGetters(["getDepartment"]),
   },
   async created() {
-    this.setTitle(`кв. ${this.flatNumber}`);
-    if (this.ready.flats) await this.loadFlatInfo();
+    this.setTitle(`кв. ${this.departmentNumber}`);
+    if (this.ready.departments) await this.loadDepartmentInfo();
   },
   methods: {
-    async loadFlatInfo() {
-      this.flat = this.getFlat(this.flatNumber);
-      const residents = await this.client.wrapEmit("flat.info", { flatNumber: this.flatNumber });
-      if (residents != null) this.flat.residents = residents;
+    async loadDepartmentInfo() {
+      this.department = this.getDepartment(this.departmentNumber);
+      const residents = await this.client.wrapEmit("department.info", { departmentNumber: this.departmentNumber });
+      if (residents != null) this.department.residents = residents;
     },
     async sendMessage(resident) {
       const result = await this.client.wrapEmit("im.createPrivateChannel", { personId: resident.personId });
@@ -78,8 +78,8 @@ export default {
     },
   },
   watch: {
-    async "ready.flats"() {
-      await this.loadFlatInfo();
+    async "ready.departments"() {
+      await this.loadDepartmentInfo();
     },
   },
 };

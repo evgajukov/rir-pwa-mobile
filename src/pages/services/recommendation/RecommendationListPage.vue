@@ -7,7 +7,7 @@
             <v-card-title>{{ recommendation.title }}</v-card-title>
           </v-img>
           <v-card-subtitle>
-            Автор: <router-link :to="{ name: 'flat', params: { flatNumber: recommendation.person.flat.number } }">{{ recommendation.person | showName }}</router-link>
+            Автор: <router-link :to="{ name: 'department', params: { departmentNumber: recommendation.person.department.number } }">{{ recommendation.person | showName }}</router-link>
           </v-card-subtitle>
           <v-card-text>
             <span v-if="notEmpty(recommendation.extra.address)">
@@ -96,12 +96,12 @@ export default {
     showName(profile) {
       const empty = value => value == null || value.trim().length == 0;
 
-      const flat = profile.flat; 
+      const department = profile.department; 
       const name = profile.name != null ? profile.name : "";
       const surname = profile.surname != null ? profile.surname : "";
       const midname = profile.midname != null ? profile.midname : "";
       const result = `${surname} ${name} ${midname}`;
-      return empty(result) ? `сосед(ка) из кв. №${flat.number}, этаж ${flat.floor}, подъезд ${flat.section}` : result;
+      return empty(result) ? `сосед(ка) из кв. №${department.number}, этаж ${department.floor}, подъезд ${department.section}` : result;
     },
   },
 };

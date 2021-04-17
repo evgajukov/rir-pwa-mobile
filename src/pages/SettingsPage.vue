@@ -4,10 +4,10 @@
     <v-text-field v-model="name" label="Имя" required />
     <v-text-field v-model="midname" label="Отчество" required />
     <v-text-field
-      v-model="flat.number"
+      v-model="department.number"
       label="Введите номер квартиры"
-      :hint="flat.hint"
-      :error-messages="flat.errors" 
+      :hint="department.hint"
+      :error-messages="department.errors" 
       persistent-hint
       required
       :disabled="btnDisabled()" />
@@ -46,7 +46,7 @@ export default {
         mobile: false,
         telegram: false,
       },
-      flat: {
+      department: {
         id: null,
         number: null,
         hint: null,
@@ -60,7 +60,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["client", "user", "flats", "ready"]),
+    ...mapState(["client", "user", "departments", "ready"]),
   },
   created() {
     this.setTitle("Настройки");
@@ -83,16 +83,16 @@ export default {
        };
 
       }
-      if (this.ready.flats) {
+      if (this.ready.departments) {
         if (this.user.resident != null) {
-          const flat = this.user.resident.flat;
-          this.flat = { id: flat.id, number: flat.number, hint: this.getHint(flat) };
+          const department = this.user.resident.department;
+          this.department = { id: department.id, number: department.number, hint: this.getHint(department) };
         }
       }
     },
     async save() {
       console.log("Сохранение профиля");
-      if (this.flat.id == null) {
+      if (this.department.id == null) {
         console.error("Необходимо указать номер кватиры");
         return;
       }
@@ -102,7 +102,7 @@ export default {
         name: this.name,
         midname: this.midname,
         telegram: this.telegram,
-        flat: this.flat.id,
+        department: this.department.id,
         access: {
           name: {
             level: this.access.name == "nothing" ? "nothing" : "all",
@@ -129,17 +129,17 @@ export default {
         console.error(this.toast.text);
       }
     },
-    getFlat(number) {
-      for (let flat of this.flats) {
-        if (flat.number == number) return flat;
+    getDepartment(number) {
+      for (let department of this.departments) {
+        if (department.number == number) return department;
       }
       return null;
     },
-    getHint(flat) {
-      return `кв. №${flat.number}, этаж ${flat.floor}, подъезд ${flat.section}`;
+    getHint(department) {
+      return `кв. №${department.number}, этаж ${department.floor}, подъезд ${department.section}`;
     },
     btnDisabled() {
-      const result = !this.ready.flats;
+      const result = !this.ready.departments;
       return result;
     },
     ...mapMutations(["setTitle", "setPerson", "setResident"]),
@@ -148,28 +148,28 @@ export default {
     user() {
       this.init();
     },
-    "ready.flats"() {
+    "ready.departments"() {
       if (this.user.resident != null) {
-        const flat = this.user.resident.flat;
-        this.flat = { id: flat.id, number: flat.number, hint: this.getHint(flat) };
+        const department = this.user.resident.department;
+        this.department = { id: department.id, number: department.number, hint: this.getHint(department) };
       }
     },
-    "flat.number"() {
-      if (this.flat.number == null || this.flat.number.length == 0) {
-        this.flat.id = null;
-        this.flat.hint = null;
-        this.flat.errors = ["Необходимо указать номер квартиры"];
+    "department.number"() {
+      if (this.department.number == null || this.department.number.length == 0) {
+        this.department.id = null;
+        this.department.hint = null;
+        this.department.errors = ["Необходимо указать номер квартиры"];
         return;
       }
-      const flat = this.getFlat(parseInt(this.flat.number));
-      if (flat != null) {
-        this.flat.id = flat.id;
-        this.flat.hint = this.getHint(flat);
-        this.flat.errors = [];
+      const department = this.getDepartment(parseInt(this.department.number));
+      if (department != null) {
+        this.department.id = department.id;
+        this.department.hint = this.getHint(department);
+        this.department.errors = [];
       } else {
-        this.flat.id = null;
-        this.flat.hint = null;
-        this.flat.errors = ["Указанный номер квартиры не найден в доме"];
+        this.department.id = null;
+        this.department.hint = null;
+        this.department.errors = ["Указанный номер квартиры не найден в доме"];
       }
     },
   },

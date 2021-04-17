@@ -42,8 +42,8 @@ export default {
     },
     address() {
       if (this.user == null || this.user.person == null) return "";
-      const flat = this.user.resident.flat;
-      return `подъезд ${flat.section}, этаж ${flat.floor}, кв. ${flat.number}`;
+      const department = this.user.resident.department;
+      return `подъезд ${department.section}, этаж ${department.floor}, кв. ${department.number}`;
     },
     mobile() {
       if (this.user == null) return "";

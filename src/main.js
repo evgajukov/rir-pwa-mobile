@@ -68,9 +68,9 @@ client.on("all", allData => {
     store.commit("setPosts", allData.data.posts);
     client.initChannel("posts");
   }
-  if (data.flats.length != 0) {
-    store.commit("setFlats", allData.data.flats);
-    client.initChannel("flats");
+  if (data.departments.length != 0) {
+    store.commit("setDepartments", allData.data.departments);
+    client.initChannel("departments");
   }
   if (data.invites.length != 0) {
     store.commit("setInvites", allData.data.invites);
@@ -80,8 +80,8 @@ client.on("all", allData => {
 client.on("company", company => {
   store.commit("setCompany", company.data);
 });
-client.on("flats", flat => {
-  store.commit("setFlat", flat.data);
+client.on("departments", department => {
+  store.commit("setDepartment", department.data);
 });
 client.on("posts", post => {
   store.commit("setPost", post.data);

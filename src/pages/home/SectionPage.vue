@@ -7,7 +7,7 @@
           <v-card-title>Этаж {{ item.floor }}</v-card-title>
           <v-card-subtitle>
             Квартиры: {{ item.min }} - {{ item.max }}<br />
-            Заселено: <span v-if="stat != null">{{ stat.floors[item.floor].busy }} ({{ (stat.floors[item.floor].busy / stat.floors[item.floor].flats * 100).toFixed(2) }}%)</span><br />
+            Заселено: <span v-if="stat != null">{{ stat.floors[item.floor].busy }} ({{ (stat.floors[item.floor].busy / stat.floors[item.floor].departments * 100).toFixed(2) }}%)</span><br />
             Жильцов: <span v-if="stat != null">{{ stat.floors[item.floor].persons }}</span>
           </v-card-subtitle>
         </v-card>
@@ -39,11 +39,11 @@ export default {
       return this.$route.params.sectionId;
     },
     ...mapState(["ready"]),
-    ...mapGetters(["getFloors", "getFlatsStat"]),
+    ...mapGetters(["getFloors", "getDepartmentsStat"]),
   },
   created() {
     this.setTitle(`Подъезд ${this.sectionId}`);
-    if (this.ready.flats) this.stat = this.getFlatsStat().sections[this.sectionId];
+    if (this.ready.departments) this.stat = this.getDepartmentsStat().sections[this.sectionId];
   },
   methods: {
     chat() {
@@ -60,8 +60,8 @@ export default {
     ...mapMutations(["setTitle"]),
   },
   watch: {
-    "ready.flats"() {
-      this.stat = this.getFlatsStat().sections[this.sectionId];
+    "ready.departments"() {
+      this.stat = this.getDepartmentsStat().sections[this.sectionId];
     },
   },
   components: {

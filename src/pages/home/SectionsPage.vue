@@ -3,7 +3,7 @@
     <HomeStat :stat="stat" :extra="company != null">
       <template v-if="company != null">
         Общая площадь: {{ company.extra.square.total }} кв. м. (заселено {{ ((stat != null ? stat.busySquares : 0) / company.extra.square.total * 100).toFixed(2) }}%)<br />
-        Площадь квартир (БТИ): {{ company.extra.square.flats }} кв. м.<br />
+        Площадь квартир (БТИ): {{ company.extra.square.departments }} кв. м.<br />
         Подземная автостоянка: {{ company.extra.square.parking }} кв. м.<br />
         Нежилые помещения: {{ company.extra.square.nonresidential }} кв. м.<br />
         Кладовые помещения: {{ company.extra.square.pantries }} кв. м.
@@ -16,7 +16,7 @@
           <v-card-subtitle>
             Этажей: {{ item.floors }}<br />
             Квартиры: {{ item.min }} - {{ item.max }}<br />
-            Заселено: <span v-if="stat != null">{{ stat.sections[item.section].busy }} ({{ (stat.sections[item.section].busy / stat.sections[item.section].flats * 100).toFixed(2) }}%)</span><br />
+            Заселено: <span v-if="stat != null">{{ stat.sections[item.section].busy }} ({{ (stat.sections[item.section].busy / stat.sections[item.section].departments * 100).toFixed(2) }}%)</span><br />
             Жильцов: <span v-if="stat != null">{{ stat.sections[item.section].persons }}</span>
           </v-card-subtitle>
         </v-card>
@@ -45,11 +45,11 @@ export default {
   },
   computed: {
     ...mapState(["ready", "company"]),
-    ...mapGetters(["getSections", "getFlatsStat"]),
+    ...mapGetters(["getSections", "getDepartmentsStat"]),
   },
   created() {
     this.setTitle("Подъезды");
-    if (this.ready.flats) this.stat = this.getFlatsStat();
+    if (this.ready.departments) this.stat = this.getDepartmentsStat();
   },
   methods: {
     chat() {
@@ -66,8 +66,8 @@ export default {
     ...mapMutations(["setTitle"]),
   },
   watch: {
-    "ready.flats"() {
-      this.stat = this.getFlatsStat();
+    "ready.departments"() {
+      this.stat = this.getDepartmentsStat();
     },
   },
   components: {

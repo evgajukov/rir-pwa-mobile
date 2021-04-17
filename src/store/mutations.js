@@ -8,18 +8,18 @@ export default {
   setTitle(state, title) {
     state.pageName = title;
   },
-  setFlats(state, flats) {
-    state.flats = flats;
-    state.ready.flats = true;
+  setDepartments(state, departments) {
+    state.departments = departments;
+    state.ready.departments = true;
   },
   setCompany(state, company) {
     state.company = company;
     state.ready.company = true;
   },
-  setFlat(state, flat) {
-    if (state.flats == null) state.flats = [];
-    const flats = state.flats.filter(item => item.number == flat.number);
-    if (flats.length == 0) state.flats.push(flat);
+  setDepartment(state, department) {
+    if (state.departments == null) state.departments = [];
+    const departments = state.departments.filter(item => item.number == department.number);
+    if (departments.length == 0) state.departments.push(department);
   },
   setUser(state, user) {
     state.user = user;

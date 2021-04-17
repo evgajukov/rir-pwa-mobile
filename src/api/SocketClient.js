@@ -140,7 +140,7 @@ export default class SocketClient extends EventEmitter {
     if (!this.user) return [];
     let channels = [
       `user.${this.user.id}`, "company",
-      "all.posts", "all.flats", "all.invites",
+      "all.posts", "all.departments", "all.invites",
       "pinnedPosts",
       `imChannels.${this.user.id}`,
       "instructions",
